@@ -1,0 +1,20 @@
+<div class="modal-backdrop" *ngIf="isOpen" (click)="close()">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+      <div class="modal-header" [ngClass]="headerClass">
+        <h5 class="modal-title text-white">
+          {{ icon }} {{ title }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" (click)="close()"></button>
+      </div>
+      <div class="modal-body">
+        <p class="mb-0">{{ message }}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn" (click)="close()" [ngClass]="buttonClass">
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

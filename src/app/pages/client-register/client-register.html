@@ -1,0 +1,46 @@
+<!-- Inputs -->
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2>Cadastro de Cliente</h2>
+</div>
+
+<div class="mb-3">
+  <input 
+    class="form-control"
+    [(ngModel)]="clientSelected.name"  
+    placeholder="Nome do cliente">
+</div>
+
+<!-- <div class="mb-3">
+  <input 
+    type="email"
+    class="form-control"
+    [(ngModel)]="clientSelected.email" 
+    placeholder="Email">
+</div> -->
+
+<div class="mb-3">
+  <input 
+    type="tel"
+    class="form-control"
+    [(ngModel)]="clientSelected.cellphone" 
+    placeholder="Telefone">
+</div>
+
+<!-- <div class="mb-3">
+  <input 
+    type="text"
+    class="form-control"
+    [(ngModel)]="clientSelected.cpf" 
+    placeholder="CPF">
+</div> -->
+
+<!-- Botões -->
+<div class="d-flex justify-content-between mt-4">
+  <button class="btn btn-secondary" (click)="voltarPagina()">
+    Voltar
+  </button>
+
+  <button class="btn btn-primary" (click)="saveClient()">
+    Salvar
+  </button>
+</div>

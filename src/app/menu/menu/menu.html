@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <!-- MENU LATERAL -->
+    <div class="col-md-2 bg-light vh-100 p-3">
+
+      <h5>📂 Menu</h5>
+
+      <!-- Botão para Catálogo -->
+      <div class="mt-3">
+        <button 
+          class="btn btn-outline-primary w-100"
+          (click)="openScreen('books')">
+          📚 Catálogo
+        </button>
+      </div>
+
+      <!-- Botão para Pedidos -->
+      <div class="mt-2">
+        <button 
+          class="btn btn-outline-info w-100"
+          (click)="openScreen('buyOrders')">
+          📋 Vendas Realizadas
+        </button>
+      </div>
+
+      <!-- Dropdown de cadastros -->
+      <div class="mt-3">
+        <button 
+          class="btn btn-outline-secondary w-100"
+          (click)="toggleCadastros()">
+          Cadastros ▼
+        </button>
+
+        <div *ngIf="mostrarCadastros" class="mt-2">
+          <button class="btn btn-link w-100 text-start" (click)="openScreen('register')">Cadastrar Livros</button>
+          <button class="btn btn-link w-100 text-start" (click)="openScreen('clientSelector')">Cadastrar Vendas</button>
+          <button class="btn btn-link w-100 text-start" (click)="openScreen('clientRegister')">Cadastrar Clientes</button>
+          <button class="btn btn-link w-100 text-start" (click)="openScreen('books')">Editoras</button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- CONTEÚDO -->
+    <div class="col-md-10 p-4">
+
+      <app-books *ngIf="activeScreen === 'books'"
+      (bookSelected)="receive($event)"
+      ></app-books>
+
+      <app-book-register 
+        *ngIf="activeScreen === 'register'"
+        (voltar)="openScreen('books')"
+        [bookSelected]="book">
+      </app-book-register>
+
+      <app-client-selector
+        *ngIf="activeScreen === 'clientSelector'"
+        (clientSelected)="onClientSelected($event)"
+        (voltar)="openScreen('books')">
+      </app-client-selector>
+
+      <app-sell-component 
+        *ngIf="activeScreen === 'sell'"
+        [clientId]="selectedClientId"
+        (voltar)="openScreen('books')">
+      </app-sell-component>
+      
+      <app-client-register
+        *ngIf="activeScreen === 'clientRegister'"
+        (voltar)="openScreen('books')"  >
+      </app-client-register>
+
+      <app-buy-orders
+        *ngIf="activeScreen === 'buyOrders'"
+        (voltar)="openScreen('books')">
+      </app-buy-orders>
+    </div>
+  </div>
+</div>

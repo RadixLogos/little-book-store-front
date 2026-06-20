@@ -1,0 +1,269 @@
+
+<div class="container mt-4">
+
+  <!-- Cabeçalho -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>📋 Gerenciamento de Pedidos</h2>
+
+    <button
+      class="btn btn-outline-secondary"
+      (click)="voltar.emit()">
+      ← Voltar
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+
+    <p class="text-muted mt-3">
+      Carregando pedidos...
+    </p>
+  </div>
+
+  <!-- Lista -->
+  <div *ngIf="!isLoading && buyOrders.length > 0">
+
+    <div
+      *ngFor="let buyOrder of buyOrders"
+      class="card mb-4 shadow-sm order-card">
+
+      <!-- Cabeçalho do Card -->
+      <div class="card-header d-flex justify-content-between align-items-center">
+
+        <!-- Nome Cliente -->
+        <div>
+
+          <!-- Visualização -->
+          <strong
+            *ngIf="editingOrderId !== buyOrder.id"
+            class="client-name">
+
+            👤 {{ buyOrder.client.name }}
+
+          </strong>
+
+          <!-- Edição -->
+             
+            <select 
+             *ngIf="editingOrderId === buyOrder.id"
+              class="form-select"
+              [(ngModel)]="selectedClient">
+              <option value="">Selecione o cliente</option>
+              <option *ngFor="let client of clientList" [ngValue]="client">
+                👤 {{client.name}}
+              </option>
+            </select>
+            
+
+        </div>
+
+        <!-- Data -->
+        <div class="text-muted small">
+          📅 {{ getFormattedDate(buyOrder.orderDate) }}
+        </div>
+
+      </div>
+
+      <!-- Corpo -->
+      <div class="card-body">
+
+        <div class="table-responsive">
+
+          <table class="table table-striped table-hover">
+
+            <thead class="table-dark">
+              <tr>
+                <th>Nome do livro</th>
+                <th>Quantidade</th>
+                <th>Valor Pix</th>
+                <th>Valor Dinheiro</th>
+                <th>Valor Vendido</th>
+                <th>Sub Total</th>
+              </tr>
+            </thead>
+
+            <tbody>
+
+              <tr *ngFor="let orderBook of buyOrder.orderBooks">
+
+                <!-- Nome -->
+                <td style="width: 40%;">
+
+                  <!-- Visualização -->
+                  <span *ngIf="editingOrderId !== buyOrder.id">
+                    {{ orderBook.name }}
+                  </span>
+
+                  <!-- Edição -->
+                  <input
+                    *ngIf="editingOrderId === buyOrder.id"
+                    class="form-control"
+                    [(ngModel)]="orderBook.name"
+                  />
+
+                </td>
+
+                <!-- Quantidade -->
+                <td>
+
+                  <span *ngIf="editingOrderId !== buyOrder.id">
+                    {{ orderBook.quantity }}
+                  </span>
+
+                  <input
+                    *ngIf="editingOrderId === buyOrder.id"
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="orderBook.quantity"
+                  />
+
+                </td>
+
+                <!-- Pix -->
+                <td>
+
+                  <span *ngIf="editingOrderId !== buyOrder.id">
+                    {{ orderBook.pixValue }}
+                  </span>
+
+                  <input
+                    *ngIf="editingOrderId === buyOrder.id"
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="orderBook.pixValue"
+                  />
+
+                </td>
+
+                <!-- Dinheiro -->
+                <td>
+
+                  <span *ngIf="editingOrderId !== buyOrder.id">
+                    {{ orderBook.moneyValue }}
+                  </span>
+
+                  <input
+                    *ngIf="editingOrderId === buyOrder.id"
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="orderBook.moneyValue"
+                  />
+
+                </td>
+
+                <!-- Vendido -->
+                <td>
+
+                  <span *ngIf="editingOrderId !== buyOrder.id">
+                    {{ orderBook.soldValue }}
+                  </span>
+
+                  <input
+                    *ngIf="editingOrderId === buyOrder.id"
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="orderBook.soldValue"
+                  />
+
+                </td>
+
+                <!-- Subtotal -->
+                <td style="white-space: nowrap;">
+                  R$ {{ orderBook.subtotal | number:'1.2-2' }}
+                </td>
+
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+        <!-- Rodapé -->
+        <div class="d-flex justify-content-between align-items-center mt-3">
+
+          <strong class="fs-5">
+            Total: R$ {{ buyOrder.total | number:'1.2-2' }}
+          </strong>
+
+          <div class="d-flex gap-2">
+
+            <!-- Editar -->
+            <button
+              *ngIf="editingOrderId !== buyOrder.id"
+              class="btn btn-warning"
+              (click)="startEdit(buyOrder)">
+
+              Editar
+
+            </button>
+
+            <!-- Salvar -->
+            <button
+              *ngIf="editingOrderId === buyOrder.id"
+              class="btn btn-success"
+              (click)="saveEdit(buyOrder)">
+
+              Salvar
+
+            </button>
+
+            <!-- Cancelar -->
+            <button
+              *ngIf="editingOrderId === buyOrder.id"
+              class="btn btn-secondary"
+              (click)="cancelEdit()">
+
+              Cancelar
+
+            </button>
+
+            <!-- Deletar -->
+            <button
+              class="btn btn-outline-danger"
+              (click)="deleteBuyOrder(buyOrder.id)">
+
+              Deletar
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+        <div>
+          <img *ngIf="buyOrder.receiptUrl" [src]="buyOrder.receiptUrl" alt="Comprovante de compra" class="img-fluid mt-3" />
+        </div>
+
+        <div *ngIf="editingOrderId === buyOrder.id" class="mb-3">
+          <div class="form-label">  
+            Comprovante de compra:
+          </div>
+          <input
+          #fileInput
+          *ngIf="editingOrderId === buyOrder.id"
+          type="file"
+          class="form-control"
+          (change)="onFileSelected($event, buyOrder)">
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Sem pedidos -->
+  <div
+    *ngIf="!isLoading && buyOrders.length === 0"
+    class="alert alert-info">
+
+    Nenhum pedido encontrado.
+
+  </div>
+
+</div>
+

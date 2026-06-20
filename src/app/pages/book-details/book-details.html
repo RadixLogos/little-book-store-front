@@ -1,0 +1,88 @@
+<div class="container mt-4">
+
+  <!-- Loading -->
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+  </div>
+
+  <!-- Detalhes do livro -->
+  <div *ngIf="book && !isLoading" class="row">
+    <!-- Imagem -->
+    <div class="col-md-4">
+      <div class="card">
+        <img
+          [src]="book.imgUrl"
+          class="card-img-top"
+          [style.filter]="isUnavailable() ? 'grayscale(100%)' : 'none'"
+          [style.opacity]="isUnavailable() ? '0.6' : '1'"
+          style="height: 600px; object-fit: cover; background-color: #f8f9fa;"
+          [alt]="book.name"
+        />
+        <div *ngIf="isUnavailable()" class="position-absolute top-50 start-50 translate-middle">
+          <span class="badge bg-danger fs-6">INDISPONÍVEL</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Informações -->
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h1 class="card-title">{{ book.name }}</h1>
+
+          <div class="mb-3">
+            
+            <p>
+              <strong>Editora:</strong> {{ book.editor.name }}
+            </p>
+            </div>
+
+            <div class="mb-3">
+              <p>
+                <strong>Gêneros:</strong>
+                <span *ngFor="let genre of book.genres; let last = last">
+                  {{ genre.name }} <span *ngIf="!last">, </span>
+                </span>
+              </p>  
+            <div class="mb-3">
+              <p>
+                <strong>Autor:</strong> {{ book.author }}
+              </p>
+            </div>
+            <div class="mb-3">
+                <p>
+                  <strong>Descrição:</strong><br />
+                  {{ book.description }}
+                </p>  
+            </div>
+            
+            <hr/>
+
+          <!-- Preço -->
+          <div class="mb-3">
+            <h3 class="text-success">R$ {{ book.price | number: '1.2-2' }}</h3>
+          </div>
+
+          <!-- Estoque -->
+          <div class="mb-3">
+            <p>
+              <strong>Estoque:</strong>
+              <span [class]="isUnavailable() ? 'text-danger' : 'text-success'">
+                {{ book.stockQuantity > 0 ? book.stockQuantity + ' unidades' : 'Fora de estoque' }}
+              </span>
+            </p>
+          </div>
+
+          <!-- Botões -->
+          <div class="d-flex gap-2 mt-4">
+            <button class="btn btn-outline-primary" (click)="goBack()">
+              Voltar ao catálogo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

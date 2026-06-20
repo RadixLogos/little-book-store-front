@@ -1,0 +1,32 @@
+.sale-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  padding: 1rem;
+}
+
+.sale-modal-dialog {
+  width: 100%;
+  max-width: 620px;
+}
+
+.sale-modal-dialog .card {
+  border-radius: 0.75rem;
+}
+
+.sale-modal-dialog .card-header {
+  padding: 1rem 1.25rem;
+}
+
+.sale-modal-dialog .card-body {
+  padding: 1.25rem;
+}
+
+.sale-modal-dialog .btn-close {
+  border: none;
+  background: transparent;
+}

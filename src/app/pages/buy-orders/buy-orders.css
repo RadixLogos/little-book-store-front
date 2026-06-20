@@ -1,0 +1,53 @@
+.table-responsive {
+  border-radius: 0.25rem;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.btn-group-sm {
+  gap: 0.25rem;
+}
+
+.table-secondary {
+  background-color: #f8f9fa;
+}
+
+.form-control-sm {
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+}
+
+input[type='number'],
+input[type='date'] {
+  width: 100%;
+}
+.order-card {
+  border-left: 4px solid #0d6efd;
+}
+
+.client-name {
+  font-size: 1.1rem;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  font-weight: 500;
+}
+
+.table {
+  margin-top: 10px;
+}
+
+.table thead th {
+  font-size: 0.85rem;
+}
+
+.table tbody td {
+  vertical-align: middle;
+}
+
+input {
+  font-size: 0.85rem;
+}
