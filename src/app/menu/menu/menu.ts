@@ -30,4 +30,9 @@ export class Menu {
     this.selectedClientId = clientId;
     this.openScreen('sell');
   }
+
+  openRegister() {
+  this.book = {} as Book;
+  this.openScreen('register');
+}
 }

@@ -32,12 +32,21 @@ export class BookRegister implements OnInit{
     this.getAllEditors();
     this.findAllGenres();
     this.prepareBookSelected();
+    this.loadGenresIds();
   }
 
 
   prepareBookSelected(){
     if(this.bookSelected.id != null){
       this.selectedEditor = this.bookSelected.editor;
+    }
+  }
+
+  loadGenresIds(){
+    if(this.bookSelected.genres != null){
+      this.bookSelected.genres.forEach(genre => {
+        this.setOfGenresIds.add(genre.id);
+      });
     }
   }
 
@@ -73,6 +82,7 @@ onFileSelected(event: any){
       console.log(this.bookSelected.price);
       console.log(this.bookSelected.author);
       console.log(this.bookSelected.editor);
+      console.log(this.bookSelected.genres);
       this.bookService.updateBook(this.bookSelected).subscribe(
         (response: any) =>{
           if(response.status == 200){
@@ -100,12 +110,12 @@ onFileSelected(event: any){
     )
   }
 
+
   getAllEditors(){
     this.editorService.getAllEditors().subscribe(
       {     
       next: (response: any) =>{
         if(response.status == 200){
-          console.log(response.body);
           this.zone.run(()=>{
             this.editors = Array.isArray(response.body) ? response.body as Editor[] : [];
             this.cdr.detectChanges(); 
@@ -120,17 +130,27 @@ onFileSelected(event: any){
   toggleGenre(event: Event,genre: Genre) {
     const checked = (event.target as HTMLInputElement).checked;
     if(checked){
-      if(this.bookSelected.genres.find(g => g.id === genre.id)) {
+      if(this.bookSelected.genres != undefined && this.bookSelected.genres.find(g => g.id === genre.id)) {
         return;
       }
       this.bookSelected.genres.push(genre);
     } else{
       this.bookSelected.genres = this.bookSelected.genres.filter(g => g.id !== genre.id);
     }
-    
-    
+
+    console.log(this.bookSelected.genres);
     this.cdr.detectChanges();
+  
+  
   } 
+
+  genreSelected(genre: Genre): boolean {
+    if(this.bookSelected.genres != undefined && this.bookSelected.genres.length > 0){
+      
+      return this.bookSelected.genres.some(g => g.id === genre.id);
+    }
+    return false;
+  }
 
   findAllGenres(){
     this.genreService.getAllGenres().subscribe(

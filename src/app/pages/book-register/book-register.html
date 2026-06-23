@@ -24,7 +24,7 @@
 
 
       <div class="mb-3" *ngFor="let genre of genres">
-        <input type="checkbox" (change)="toggleGenre($event,genre)">
+        <input type="checkbox" [checked]="genreSelected(genre)" (change)="toggleGenre($event,genre)">
         {{genre.name}}
       </div>
      
