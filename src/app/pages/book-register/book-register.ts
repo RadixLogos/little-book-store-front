@@ -19,9 +19,9 @@ export class BookRegister implements OnInit{
 
   constructor(private bookService: BookService, private editorService: EditorService, private genreService: GenreService,
     private toast: ToastrService, private cdr: ChangeDetectorRef, private zone: NgZone){}
-  bookSelected2: Book = {} as Book;
   @Input() bookSelected!: Book;
   setOfGenresIds: Set<number> = new Set<number>();
+  genreEmptyList: Genre[] = [];
   file!: File;
   imgUrl: string = '';
   selectedEditor : Editor | null = null;
@@ -86,7 +86,7 @@ onFileSelected(event: any){
       this.bookService.updateBook(this.bookSelected).subscribe(
         (response: any) =>{
           if(response.status == 200){
-            this.toast.success("Livro atualizado com sucesso!");
+            console.log("Livro atualizado com sucesso!");
             this.resetForm();
             this.voltar.emit();
           } else{
@@ -100,9 +100,9 @@ onFileSelected(event: any){
     this.bookService.saveBook(this.bookSelected).subscribe(
       (response: any) =>{
         if(response.status == 201){
-          this.toast.success("Livro cadastrado com sucesso!");
+          console.log(this.bookSelected.genres);
+          console.log("Livro cadastrado com sucesso!");
           this.resetForm();
-          this.voltar.emit();
         } else{
           this.toast.error("Erro ao cadastrar livro!");
         }
@@ -133,6 +133,10 @@ onFileSelected(event: any){
       if(this.bookSelected.genres != undefined && this.bookSelected.genres.find(g => g.id === genre.id)) {
         return;
       }
+      if(this.bookSelected.genres === undefined){
+        this.bookSelected.genres = this.genreEmptyList;
+      }
+      
       this.bookSelected.genres.push(genre);
     } else{
       this.bookSelected.genres = this.bookSelected.genres.filter(g => g.id !== genre.id);
@@ -172,6 +176,7 @@ onFileSelected(event: any){
       (result:any) =>{
           if(result.status == 200){
             this.bookSelected.imgUrl = result.body.url;
+            console.log( result.body.url)
           }
       }
     )

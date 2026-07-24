@@ -19,4 +19,12 @@ export class ClientService {
     return this.http.post<Client>(`${this.apiUrl}clients`, client, { observe: 'response' });
   }
 
+
+  updateClient(client: Client) {
+    return this.http.put<Client>(`${this.apiUrl}clients/${client.id}`, client, { observe: 'response' });
+  }
+
+  deleteClient(client: Client){
+    return this.http.delete<Client>(`${this.apiUrl}/clients/${client.id}`,{ observe: 'response' })
+  }
 }

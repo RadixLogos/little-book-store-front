@@ -17,9 +17,12 @@ import { SellComponent } from './sell/sell-component/sell-component';
 import { ModalAlert } from './shared/modal-alert/modal-alert';
 import { ClientSelector } from './pages/client-selector/client-selector';
 import { ClientRegister } from './pages/client-register/client-register';
+import { ClientSelectorGeneral } from './pages/client-selector-general/client-selector-general';
+import { EditorRegisterComponent } from './pages/editor-register/editor-register';
+
 
 @NgModule({
-  declarations: [App, Books, BookRegister, BookDetailsComponent, BuyOrdersComponent, Menu, SellComponent, ModalAlert, ClientSelector, ClientRegister],
+  declarations: [App, Books, BookRegister, BookDetailsComponent, BuyOrdersComponent, Menu, SellComponent, ModalAlert, ClientSelector, ClientRegister, ClientSelectorGeneral,EditorRegisterComponent],
   imports: [
     BrowserModule,
     CommonModule,

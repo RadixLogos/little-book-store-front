@@ -25,6 +25,8 @@ genreId = "";
 bookFilter: BookFilter = {} as BookFilter;
 genres: Genre[] = [];
 editors: Editor[] = [];
+totalPages : number = 0;
+currentPage: number = 0;
 
 @Output() bookSelected = new EventEmitter<Book>();
 constructor(
@@ -47,8 +49,6 @@ ngOnInit(): void {
 }
 
 sendBook(book: Book): void {
-
-
   this.bookSelected.emit(book);
 }
 
@@ -105,7 +105,7 @@ loadBooks() {
   this.bookFilter.editorId = this.editorId ? parseInt(this.editorId) : 0;
   this.bookFilter.genreId = this.genreId ? parseInt(this.genreId) : 0;
   console.log('Filtro de livros:', this.bookFilter);
-  this.service.getBooks(this.bookFilter)
+  this.service.getBooks(this.bookFilter,this.currentPage,10)
     .subscribe({
       next: (response: any) => {
         console.log('Resposta completa da API:', response);
@@ -113,6 +113,7 @@ loadBooks() {
         console.log('É array?', Array.isArray(response));
         this.zone.run(() => {
           this.books = Array.isArray(response) ? response : response.content || [];
+          this.totalPages = response.totalPages;
           this.cdr.detectChanges();
         });
         console.log('Livros carregados:', this.books);
@@ -135,6 +136,10 @@ openImage(img: string) {
   this.selectedImage = img;
 }
 
+filterChange(){
+  this.currentPage = 0;
+  this.loadBooks();
+}
 closeImage() {
   this.selectedImage = null;
 }
@@ -170,5 +175,19 @@ viewDetails(book: Book ): void {
   });
 }
 
+nextPage(){
+  if(this.currentPage <= this.totalPages -1){
+    this.currentPage++;
+    this.loadBooks();
+  }
 
+  
+}
+
+backPage(){
+   if(this.currentPage >= this.totalPages -1){
+    this.currentPage--;
+    this.loadBooks();
+  } 
+  }
 }

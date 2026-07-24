@@ -8,6 +8,8 @@ import { BuyOrdersComponent } from './pages/buy-orders/buy-orders';
 import { Menu } from './menu/menu/menu';
 import { SellComponent } from './sell/sell-component/sell-component';
 import { ClientRegister } from './pages/client-register/client-register';
+import { ClientSelectorGeneral } from './pages/client-selector-general/client-selector-general';
+import { EditorRegisterComponent } from './pages/editor-register/editor-register';
 const routes: Routes = [
   {path: '', redirectTo: 'menu', pathMatch: 'full'},
   {path : 'books', component: Books},
@@ -17,6 +19,8 @@ const routes: Routes = [
   {path: 'buy-orders', component: BuyOrdersComponent},
   {path:'menu', component: Menu},
   {path:'sell-component', component: SellComponent},
+  {path: 'client-selector-general', component: ClientSelectorGeneral},
+  {path: 'editor-register', component: EditorRegisterComponent}
 ];
 
 @NgModule({

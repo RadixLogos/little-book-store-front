@@ -34,7 +34,8 @@ export class SellComponent {
   orderBook: OrderBook = {} as OrderBook;
   listOrderBooks: OrderBook[] = [];
   client: Client = {} as Client;
-
+  totalPages : number = 0;
+  currentPage: number = 0;
   
   // Variáveis do Modal
   isModalOpen: boolean = false;
@@ -69,7 +70,7 @@ export class SellComponent {
   }
 }
 loadBooks() {
-  this.service.getBooks(this.bookFilter)
+  this.service.getBooks(this.bookFilter,this.currentPage,10)
     .subscribe({
       next: (response) => {
         console.log('Resposta completa da API:', response);

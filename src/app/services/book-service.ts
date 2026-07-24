@@ -15,8 +15,8 @@ export class BookService {
 
   constructor(private http: HttpClient){}
 
-  getBooks(filter: BookFilter){
-    return this.http.get<any>(`${this.apiUrl}books?name=${filter.name||''}&editorId=${filter.editorId||''}&genreId=${filter.genreId||''}`);
+  getBooks(filter: BookFilter,currentPage:number, size:number){
+    return this.http.get<any>(`${this.apiUrl}books?name=${filter.name||''}&editorId=${filter.editorId||''}&genreId=${filter.genreId||''}&page=${currentPage}&size=${size}`);
   }
 
 updateBook(book: Book){ 

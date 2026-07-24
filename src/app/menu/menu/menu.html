@@ -36,7 +36,7 @@
           <button class="btn btn-link w-100 text-start" (click)="openRegister()">Cadastrar Livros</button>
           <button class="btn btn-link w-100 text-start" (click)="openScreen('clientSelector')">Cadastrar Vendas</button>
           <button class="btn btn-link w-100 text-start" (click)="openScreen('clientRegister')">Cadastrar Clientes</button>
-          <button class="btn btn-link w-100 text-start" (click)="openScreen('books')">Editoras</button>
+          <button class="btn btn-link w-100 text-start" (click)="openScreen('editor')">Editoras</button>
         </div>
       </div>
 
@@ -67,15 +67,20 @@
         (voltar)="openScreen('books')">
       </app-sell-component>
       
-      <app-client-register
+      <app-client-selector-general
         *ngIf="activeScreen === 'clientRegister'"
         (voltar)="openScreen('books')"  >
-      </app-client-register>
+      </app-client-selector-general>
 
       <app-buy-orders
         *ngIf="activeScreen === 'buyOrders'"
         (voltar)="openScreen('books')">
       </app-buy-orders>
+
+      <app-editor-register
+      *ngIf="activeScreen === 'editor'"
+      (voltar)="openScreen('books')"
+      ></app-editor-register>
     </div>
   </div>
 </div>

@@ -1,15 +1,60 @@
-<!-- <div class="container mt-4">
-  <h2>Cadastro de Editora</h2> -->
-  <!-- <form [formGroup]="editorForm" (ngSubmit)="submit()"> -->
-    <!-- <div class="mb-3">
-      <label for="name" class="form-label">Nome da Editora</label>
-      <input id="name" type="text" class="form-control" formControlName="name" placeholder="Digite o nome da editora" />
-      <div *ngIf="editorForm.get('name')?.invalid && editorForm.get('name')?.touched" class="text-danger">
-        O nome é obrigatório.
-      </div>
+<!-- Inputs -->
+  
+
+<div class="container mt-4">
+  <div class="row justify-content-center">
+
+    <div class="col-md-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Cadastro de Editoras</h2>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="editorForm.invalid">Cadastrar</button> -->
-  <!-- </form> -->
-  <!-- <div *ngIf="successMessage" class="alert alert-success mt-3">{{ successMessage }}</div>
-  <div *ngIf="errorMessage" class="alert alert-danger mt-3">{{ errorMessage }}</div>
-</div> -->
+        <div class="row mb-3">
+        <div class="col-md-12">
+          <div class="d-flex gap-2">
+            <input 
+          class="form-control"
+          type="text"
+          [(ngModel)]="editorName" 
+          placeholder="Nome da editora">
+        <button class="btn btn-primary" (click)="saveEditor()">
+          Salvar
+        </button>
+          </div>
+          
+        </div>
+          
+        
+      </div>
+      <div class="card shadow">
+        <div class="card-header">
+          <h4 class="mb-0">Lista de Editoras</h4>
+        </div>
+
+        <div class="card-body">
+
+          <ul class="list-group">
+            <li
+              class="list-group-item"
+              *ngFor="let editor of editorList">
+
+              {{ editor.name }}
+
+            </li>
+          </ul>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+      <!-- Botões -->
+      <div class="d-flex justify-content-between mt-4">
+        <button class="btn btn-secondary" (click)="voltarPagina()">
+          Voltar
+        </button>
+
+      </div>
+
+

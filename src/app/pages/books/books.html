@@ -18,6 +18,7 @@
               type="text"
               class="form-control"
               [(ngModel)]="bookFilter.name"
+              (keydown.enter)="filterChange()"
               placeholder="Digite o nome..."
             />
           </div>
@@ -29,7 +30,7 @@
           <select
             class="form-select"
             [(ngModel)]="genreId"
-            (change)="loadBooks()"
+            (change)="filterChange()"
             >
             <option value="">Todos os gêneros</option>
             <option *ngFor="let genre of genres" [value]="genre.id">
@@ -44,7 +45,7 @@
           <select
             class="form-select"
             [(ngModel)]="editorId"
-            (change)="loadBooks()"
+            (change)="filterChange()"
             >
             <option value="">Todas as editoras</option>
             <option *ngFor="let editor of editors" [value]="editor.id">
@@ -52,6 +53,13 @@
             </option>
           </select>
         </div>
+      <div class="col-md-2">
+    <button class="btn btn-primary w-100"
+      (click)="filterChange()"
+    >
+      Buscar
+    </button>
+  </div>
       </div>
     </div>
   </div>
@@ -135,6 +143,26 @@
   </div>
 
 </div>
+<button
+  (click)="backPage()"
+  [disabled]="currentPage === 0">
+
+  Anterior
+</button>
+
+<span>
+  Página {{ currentPage + 1 }}
+  de
+  {{ totalPages }}
+</span>
+
+<button
+  (click)="nextPage()"
+  [disabled]="currentPage >= totalPages - 1">
+
+  Próxima
+
+</button>
 
 <div class="image-modal" *ngIf="selectedImage" (click)="closeImage()">
   <img [src]="selectedImage" class="image-modal-content" />
