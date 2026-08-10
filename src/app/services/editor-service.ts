@@ -20,7 +20,7 @@ export class EditorService {
   }
 
   updateEditor(editor: Editor){
-    return this.http.put<any>(`${this.apiUrl}editor`,editor,{observe: 'response'});
+    return this.http.put<any>(`${this.apiUrl}editor/${editor.id}`,editor,{observe: 'response'});
   }
 }
 

@@ -9,7 +9,7 @@ import { Book } from '../../entities/book';
 })
 export class Menu {
 
-  activeScreen: 'books' | 'register' | 'sell' | 'clientSelector' | 'clientRegister' | 'buyOrders' | 'editor' = 'books';
+  activeScreen: 'books' | 'register' | 'sell' | 'clientSelector' | 'clientRegister' | 'buyOrders' | 'editor' | 'genre' = 'books';
   mostrarCadastros = false;
   selectedClientId: number | null = null;
   book: Book = {} as Book;
@@ -18,7 +18,7 @@ export class Menu {
     this.mostrarCadastros = !this.mostrarCadastros;
   }
 
-  openScreen(screen: 'books' | 'register' | 'sell' | 'clientSelector' | 'clientRegister' | 'buyOrders' | 'editor') {
+  openScreen(screen: 'books' | 'register' | 'sell' | 'clientSelector' | 'clientRegister' | 'buyOrders' | 'editor' | 'genre') {
     this.activeScreen = screen;
     this.mostrarCadastros = false;
   }

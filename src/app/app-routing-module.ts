@@ -10,6 +10,7 @@ import { SellComponent } from './sell/sell-component/sell-component';
 import { ClientRegister } from './pages/client-register/client-register';
 import { ClientSelectorGeneral } from './pages/client-selector-general/client-selector-general';
 import { EditorRegisterComponent } from './pages/editor-register/editor-register';
+import { GenreRegister } from './genre/genre-register/genre-register';
 const routes: Routes = [
   {path: '', redirectTo: 'menu', pathMatch: 'full'},
   {path : 'books', component: Books},
@@ -20,7 +21,8 @@ const routes: Routes = [
   {path:'menu', component: Menu},
   {path:'sell-component', component: SellComponent},
   {path: 'client-selector-general', component: ClientSelectorGeneral},
-  {path: 'editor-register', component: EditorRegisterComponent}
+  {path: 'editor-register', component: EditorRegisterComponent},
+  {path: 'genre-register', component: GenreRegister}
 ];
 
 @NgModule({

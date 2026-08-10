@@ -37,6 +37,7 @@
           <button class="btn btn-link w-100 text-start" (click)="openScreen('clientSelector')">Cadastrar Vendas</button>
           <button class="btn btn-link w-100 text-start" (click)="openScreen('clientRegister')">Cadastrar Clientes</button>
           <button class="btn btn-link w-100 text-start" (click)="openScreen('editor')">Editoras</button>
+          <button class="btn btn-link w-100 text-start" (click)="openScreen('genre')">Generos</button>
         </div>
       </div>
 
@@ -81,6 +82,13 @@
       *ngIf="activeScreen === 'editor'"
       (voltar)="openScreen('books')"
       ></app-editor-register>
+    
+    <app-genre-register
+    *ngIf="activeScreen === 'genre'"
+    (voltar)="openScreen('books')"
+    >
+
+    </app-genre-register>
     </div>
   </div>
 </div>

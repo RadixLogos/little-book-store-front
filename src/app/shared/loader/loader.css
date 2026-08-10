@@ -1,0 +1,29 @@
+.overlay{
+    position: fixed;
+    inset: 0;
+    background: rgb(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+.modal-loading{
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+.spinner{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 5px solid #ccc;
+    border-top-color: #197612;
+    animation: spin .1s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform: rotate(360deg);
+    }
+}

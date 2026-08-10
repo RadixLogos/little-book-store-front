@@ -1,7 +1,7 @@
 import { NgModule, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -19,10 +19,27 @@ import { ClientSelector } from './pages/client-selector/client-selector';
 import { ClientRegister } from './pages/client-register/client-register';
 import { ClientSelectorGeneral } from './pages/client-selector-general/client-selector-general';
 import { EditorRegisterComponent } from './pages/editor-register/editor-register';
-
+import { GenreRegister } from './genre/genre-register/genre-register';
+import { loadingInterceptor } from './interceptors/loading-interceptor';
+import { Loader } from './shared/loader/loader';
 
 @NgModule({
-  declarations: [App, Books, BookRegister, BookDetailsComponent, BuyOrdersComponent, Menu, SellComponent, ModalAlert, ClientSelector, ClientRegister, ClientSelectorGeneral,EditorRegisterComponent],
+  declarations: [
+    App,
+    Books,
+    BookRegister,
+    BookDetailsComponent,
+    BuyOrdersComponent,
+    Menu,
+    SellComponent,
+    ModalAlert,
+    ClientSelector,
+    ClientRegister,
+    ClientSelectorGeneral,
+    EditorRegisterComponent,
+    GenreRegister,
+    Loader,
+  ],
   imports: [
     BrowserModule,
     CommonModule,
@@ -33,7 +50,10 @@ import { EditorRegisterComponent } from './pages/editor-register/editor-register
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
-  providers: [provideBrowserGlobalErrorListeners()],
+  providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideHttpClient(withInterceptors([loadingInterceptor])),
+  ],
   bootstrap: [App],
 })
 export class AppModule {}

@@ -10,12 +10,19 @@ export class LoaderService {
 
   loading$ = this.loadingSubject.asObservable();
 
+  activeRequest = 0;
   show() {
+    this.activeRequest ++;
     this.loadingSubject.next(true);
   }
 
   hide() {
-    this.loadingSubject.next(false);
+    if(this.activeRequest > 0){
+      this.activeRequest--;
+    } 
+    if(this.activeRequest === 0){
+      this.loadingSubject.next(false);
+    }
   }
 
   isLoading(): boolean {

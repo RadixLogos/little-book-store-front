@@ -6,6 +6,7 @@ import { Editor } from '../../entities/editor';
 import { EditorService } from '../../services/editor-service';
 import { GenreService } from '../../services/genre-service';
 import { Genre } from '../../entities/Genre';
+import { LoaderService } from '../../services/loader';
 
 @Component({
   selector: 'app-book-register',
@@ -21,7 +22,6 @@ export class BookRegister implements OnInit{
     private toast: ToastrService, private cdr: ChangeDetectorRef, private zone: NgZone){}
   @Input() bookSelected!: Book;
   setOfGenresIds: Set<number> = new Set<number>();
-  genreEmptyList: Genre[] = [];
   file!: File;
   imgUrl: string = '';
   selectedEditor : Editor | null = null;
@@ -55,7 +55,6 @@ resetForm() {
   this.selectedEditor = null;
   this.imgUrl = '';
   this.file = undefined as any;
-
   if (this.fileInput?.nativeElement) {
     this.fileInput.nativeElement.value = '';
   }
@@ -71,13 +70,34 @@ resetForm() {
   }
 onFileSelected(event: any){
   this.file = event.target.files[0];
-  
   this.getImgUrl();
 }
   saveBook(){
     this.selectedEditor == null ? undefined : this.selectedEditor;
     this.bookSelected.editor = this.selectedEditor!;
-    if(this.bookSelected.id !=null){
+    console.log(this.bookSelected.flUpdate);
+    console.log(this.bookSelected.imgUrl);
+    if(this.bookSelected.flUpdate){
+      this.updateBook();
+    }else{
+    console.log(this.bookSelected.editor);
+    this.bookService.saveBook(this.bookSelected).subscribe(
+      (response: any) =>{
+        if(response.status == 201){
+          console.log("Livro cadastrado com sucesso!");
+          this.resetForm();
+          console.log(this.bookSelected.genres);
+        } else{
+          this.toast.error("Erro ao cadastrar livro!");
+        }
+      }
+    )
+    }
+      
+  }
+
+  updateBook(){
+    
       console.log(this.bookSelected.id);
       console.log(this.bookSelected.price);
       console.log(this.bookSelected.author);
@@ -94,22 +114,8 @@ onFileSelected(event: any){
           }
         }
       )
-      return;
-    }
-      console.log(this.bookSelected.editor);
-    this.bookService.saveBook(this.bookSelected).subscribe(
-      (response: any) =>{
-        if(response.status == 201){
-          console.log(this.bookSelected.genres);
-          console.log("Livro cadastrado com sucesso!");
-          this.resetForm();
-        } else{
-          this.toast.error("Erro ao cadastrar livro!");
-        }
-      }
-    )
+     
   }
-
 
   getAllEditors(){
     this.editorService.getAllEditors().subscribe(
@@ -117,7 +123,7 @@ onFileSelected(event: any){
       next: (response: any) =>{
         if(response.status == 200){
           this.zone.run(()=>{
-            this.editors = Array.isArray(response.body) ? response.body as Editor[] : [];
+            this.editors = Array.isArray(response.body.content) ? response.body.content as Editor[] : [];
             this.cdr.detectChanges(); 
           })
           
@@ -134,7 +140,7 @@ onFileSelected(event: any){
         return;
       }
       if(this.bookSelected.genres === undefined){
-        this.bookSelected.genres = this.genreEmptyList;
+        this.bookSelected.genres = [];
       }
       
       this.bookSelected.genres.push(genre);
@@ -161,7 +167,7 @@ onFileSelected(event: any){
       (response: any) =>{
         if(response.status == 200){
           this.zone.run(()=>{
-            this.genres = Array.isArray(response.body) ? response.body as Genre[] : [];
+            this.genres = Array.isArray(response.body.content) ? response.body.content as Genre[] : [];
             this.cdr.detectChanges(); 
           })
         }

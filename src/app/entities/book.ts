@@ -12,4 +12,5 @@ export interface Book {
     price: number;
     stockQuantity: number;
     imgUrl : string;
+    flUpdate : boolean;
 }

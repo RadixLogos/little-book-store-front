@@ -1,42 +1,40 @@
-import { ChangeDetectorRef, Component, EventEmitter, NgModule, Output } from '@angular/core';
-import { EditorService } from '../../services/editor-service';
+import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
+import { Genre } from '../../entities/Genre';
+import { GenreService } from '../../services/genre-service';
 import { LoaderService } from '../../services/loader';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
-import { Editor } from '../../entities/editor';
-import { CommonModule } from '@angular/common';
 
 @Component({
+  selector: 'app-genre-register',
   standalone: false,
-    selector: 'app-editor-register',
-  templateUrl: './editor-register.html',
-  styleUrls: ['./editor-register.css']
+  templateUrl: './genre-register.html',
+  styleUrl: './genre-register.css',
 })
-export class EditorRegisterComponent {
-  editorName: string = '';
-  editor : Editor = {} as Editor;
-  editorList: Editor[] = [];
+export class GenreRegister {
+  genreName: string = '';
+  genre : Genre = {} as Genre;
+  genreList: Genre[] = [];
  @Output() voltar = new EventEmitter();
   
  constructor(
-    private fb: FormBuilder,
-    private editorService: EditorService,
+    private genreService: GenreService,
     public loaderService: LoaderService,
     private cdr: ChangeDetectorRef
   ) {
   }
 
   ngOnInit():void{
-    this.loadEditors();
+    this.loadGenres();
   }
 
-  saveEditor(){ 
-    this.editor.name = this.editorName;
-    if(this.editor.id === null || this.editor.id === undefined ){
-        this.editorService.insertEditor(this.editor).subscribe({
+  saveGenre(){ 
+    this.genre.name = this.genreName;
+    if(this.genre.id === null || this.genre.id === undefined ){
+        this.genreService.insertGenre(this.genre).subscribe({
             next: (response : any) =>{
                 if(response.status == 201){
                     console.log("Ediora salva com sucesso!");
-                    this.loadEditors();
+                    this.genreName = '';
+                    this.loadGenres();
                 }
                 else{
                     console.log(response);
@@ -47,7 +45,7 @@ export class EditorRegisterComponent {
         })
 
     }else{
-        this.editorService.updateEditor(this.editor).subscribe({
+        this.genreService.updateGenre(this.genre).subscribe({
             next: (response : any) =>{
                 if(response.status == 201){
                     console.log("Ediora salva com sucesso!");
@@ -63,10 +61,10 @@ export class EditorRegisterComponent {
     
   }
 
-  loadEditors(){
-    this.editorService.getAllEditors().subscribe({
+  loadGenres(){
+    this.genreService.getAllGenres().subscribe({
         next: (response : any) =>{
-            this.editorList = response.body.content === null || response.body.content === undefined ? [] : response.body.content;
+            this.genreList = response.body.content === null || response.body.content === undefined ? [] : response.body.content;
             this.cdr.detectChanges();
         },
         error : (err : any) => {
@@ -78,4 +76,5 @@ export class EditorRegisterComponent {
     this.voltar.emit();
   }
   
+
 }

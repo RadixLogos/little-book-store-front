@@ -49,6 +49,7 @@ ngOnInit(): void {
 }
 
 sendBook(book: Book): void {
+  book.flUpdate = true;
   this.bookSelected.emit(book);
 }
 
@@ -74,7 +75,7 @@ loadGenres() {
   this.genreService.getAllGenres().subscribe(
     (response: any) =>{
       console.log('Gêneros:', response);
-      this.genres = Array.isArray(response.body) ? response.body : [];
+      this.genres = Array.isArray(response.body.content) ? response.body.content : [];
       console.log('Gêneros carregados:', this.genres);
     },
     (error: any) =>{
@@ -89,7 +90,7 @@ loadEtitors(){
   this.editorService.getAllEditors().subscribe(
     (response: any) => {
       console.log('Editoras:', response);
-      this.editors = Array.isArray(response.body) ? response.body :  [];
+      this.editors = Array.isArray(response.body.content) ? response.body.content :  [];
       console.log('Editoras carregadas:', this.editors);
     },
     (error: any) =>{
@@ -105,7 +106,7 @@ loadBooks() {
   this.bookFilter.editorId = this.editorId ? parseInt(this.editorId) : 0;
   this.bookFilter.genreId = this.genreId ? parseInt(this.genreId) : 0;
   console.log('Filtro de livros:', this.bookFilter);
-  this.service.getBooks(this.bookFilter,this.currentPage,10)
+  this.service.getBooks(this.bookFilter,this.currentPage,12)
     .subscribe({
       next: (response: any) => {
         console.log('Resposta completa da API:', response);
