@@ -102,7 +102,6 @@ loadEtitors(){
 }
 
 loadBooks() {
-  this.loaderService.show();
   this.bookFilter.editorId = this.editorId ? parseInt(this.editorId) : 0;
   this.bookFilter.genreId = this.genreId ? parseInt(this.genreId) : 0;
   console.log('Filtro de livros:', this.bookFilter);
@@ -124,7 +123,7 @@ loadBooks() {
         this.books = [];
       },
       complete: () => {
-        this.loaderService.hide();
+        
       }
     });
 

@@ -36,6 +36,7 @@ export class EditorRegisterComponent {
             next: (response : any) =>{
                 if(response.status == 201){
                     console.log("Ediora salva com sucesso!");
+                    this.editorName = '';
                     this.loadEditors();
                 }
                 else{
