@@ -14,6 +14,7 @@ import {  BuyOrderRequest } from '../../entities/BuyOrderRequest';
 import { Client } from '../../entities/client';
 import { ClientService } from '../../services/client-service';
 import { BuyOrderResponse } from '../../entities/BuyOrderResponse';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buy-orders',
@@ -47,7 +48,8 @@ export class BuyOrdersComponent implements OnInit {
     private bookService: BookService,
     public loaderService: LoaderService,
     private clientService: ClientService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -113,6 +115,9 @@ export class BuyOrdersComponent implements OnInit {
 
   }
 
+  voltarPagina(){
+    this.router.navigate(['/books']);
+  }
   saveEdit(order: BuyOrderResponse): void {
     this.buyOrderRequest = {
       id: order.id,

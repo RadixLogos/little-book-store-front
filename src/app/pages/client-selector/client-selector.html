@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div *ngIf = "activeScreen !== 'sell'" class="container mt-4">
   <!-- Cabeçalho -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Selecionar Cliente</h2>
@@ -58,7 +58,7 @@
             <button 
               class="btn btn-success" 
               type="button" 
-              (click)="selectClient()"
+              (click)="openRegisterForm()"
               [disabled]="!selectedClientId">
               Continuar com Cliente Selecionado
             </button>
@@ -133,6 +133,12 @@
     </div>
   </div>
 </div>
+
+      <app-sell-component 
+        *ngIf="activeScreen === 'sell'"
+        [clientId]="selectedClientId"
+        >
+      </app-sell-component>
 
 <!-- Modal de Sucesso/Erro -->
 <app-modal-alert 

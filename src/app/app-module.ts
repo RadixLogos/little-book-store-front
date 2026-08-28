@@ -22,6 +22,8 @@ import { EditorRegisterComponent } from './pages/editor-register/editor-register
 import { GenreRegister } from './genre/genre-register/genre-register';
 import { loadingInterceptor } from './interceptors/loading-interceptor';
 import { Loader } from './shared/loader/loader';
+import { Login } from './pages/login/login';
+import { jwtInterceptor } from './interceptors/jwt-interceptor';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,7 @@ import { Loader } from './shared/loader/loader';
     EditorRegisterComponent,
     GenreRegister,
     Loader,
+    Login,
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,7 @@ import { Loader } from './shared/loader/loader';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withInterceptors([loadingInterceptor])),
+    provideHttpClient(withInterceptors([loadingInterceptor,jwtInterceptor])),
   ],
   bootstrap: [App],
 })

@@ -35,7 +35,7 @@ updateBook(book: Book){
   }
 
   getAllBuyOrders(){
-    return this.http.get<BuyOrderResponse[]>(`${this.apiUrl}buy-orders`);
+    return this.http.get<BuyOrderResponse[]>(`${this.apiUrl}buy-orders?sort=orderDate,desc`);
   }
 
   updateBuyOrder(buyOrder: BuyOrderRequest){

@@ -9,6 +9,7 @@ import { EditorService } from '../../services/editor-service';
 import { BookFilter } from '../../entities/BookFilter';
 import { BookResponse } from '../../entities/BookResponse';
 import { GenreService } from '../../services/genre-service';
+import { state } from '@angular/animations';
 
 @Component({
   selector: 'app-books',
@@ -27,6 +28,7 @@ genres: Genre[] = [];
 editors: Editor[] = [];
 totalPages : number = 0;
 currentPage: number = 0;
+activeScreen : String = ''
 
 @Output() bookSelected = new EventEmitter<Book>();
 constructor(
@@ -46,11 +48,6 @@ ngOnInit(): void {
     this.loadEtitors();
     this.loadGenres();
   }
-}
-
-sendBook(book: Book): void {
-  book.flUpdate = true;
-  this.bookSelected.emit(book);
 }
 
 findBookById(id: number): Book {
@@ -169,6 +166,13 @@ isUnavailable(book: Book): boolean {
   return book.stockQuantity === 0;
 }
 
+updateBook(book: Book): void {
+  book.flUpdate = true;
+  this.router.navigate(['/book-register', book.id],{
+    state: {book: book}
+  });
+}
+
 viewDetails(book: Book ): void {
    this.router.navigate(['/book-details', book.id], {
     state: { book: book }
@@ -185,7 +189,7 @@ nextPage(){
 }
 
 backPage(){
-   if(this.currentPage >= this.totalPages -1){
+   if(this.currentPage > 0){
     this.currentPage--;
     this.loadBooks();
   } 

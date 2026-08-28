@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, ChangeDetectorRef, NgZone } from '@angular/core';
 import { ClientService } from '../../services/client-service';
 import { Client } from '../../entities/client';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-selector-general',
@@ -31,7 +32,7 @@ export class ClientSelectorGeneral {
   modalMessage: string = '';
 
   constructor(private clientService: ClientService, private zone: NgZone, 
-  private cdr: ChangeDetectorRef) {}
+  private cdr: ChangeDetectorRef, private router: Router) {}
 
   ngOnInit() {
     this.loadClients();
@@ -159,6 +160,6 @@ export class ClientSelectorGeneral {
   }
 
   voltarPagina() {
-    this.voltar.emit();
+    this.router.navigate(['/books']);
   }
 }

@@ -25,6 +25,6 @@ export class ClientService {
   }
 
   deleteClient(client: Client){
-    return this.http.delete<Client>(`${this.apiUrl}/clients/${client.id}`,{ observe: 'response' })
+    return this.http.delete<Client>(`${this.apiUrl}clients/${client.id}`,{ observe: 'response' })
   }
 }

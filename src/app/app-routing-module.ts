@@ -11,12 +11,18 @@ import { ClientRegister } from './pages/client-register/client-register';
 import { ClientSelectorGeneral } from './pages/client-selector-general/client-selector-general';
 import { EditorRegisterComponent } from './pages/editor-register/editor-register';
 import { GenreRegister } from './genre/genre-register/genre-register';
+import { authGuard } from './guards/auth-guard';
+import { Login } from './pages/login/login';
+import { ClientSelector } from './pages/client-selector/client-selector';
 const routes: Routes = [
-  {path: '', redirectTo: 'menu', pathMatch: 'full'},
+  {path: '', redirectTo: 'books', pathMatch: 'full'},
   {path : 'books', component: Books},
+  {path : 'login', component: Login},
   {path: 'book-details/:id', component: BookDetailsComponent},
   {path: 'book-register', component: BookRegister},
+  {path: 'book-register/:id', component: BookRegister},
   {path: 'client-register', component: ClientRegister},
+  {path: 'client-selector', component: ClientSelector},
   {path: 'buy-orders', component: BuyOrdersComponent},
   {path:'menu', component: Menu},
   {path:'sell-component', component: SellComponent},

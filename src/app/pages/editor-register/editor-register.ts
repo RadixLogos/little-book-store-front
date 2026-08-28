@@ -4,6 +4,7 @@ import { LoaderService } from '../../services/loader';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { Editor } from '../../entities/editor';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: false,
@@ -21,7 +22,8 @@ export class EditorRegisterComponent {
     private fb: FormBuilder,
     private editorService: EditorService,
     public loaderService: LoaderService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router: Router
   ) {
   }
 
@@ -76,7 +78,7 @@ export class EditorRegisterComponent {
     })
   }
     voltarPagina(){
-    this.voltar.emit();
+     this.router.navigate(['/books']);
   }
   
 }

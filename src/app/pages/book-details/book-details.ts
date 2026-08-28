@@ -63,7 +63,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/menu']);
+    this.router.navigate(['/books']);
   }
 
   

@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Book } from '../../entities/book';
+import { AuthService } from '../../services/auth-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -9,19 +11,23 @@ import { Book } from '../../entities/book';
 })
 export class Menu {
 
-  activeScreen: 'books' | 'register' | 'sell' | 'clientSelector' | 'clientRegister' | 'buyOrders' | 'editor' | 'genre' = 'books';
+  constructor(private authService: AuthService, private router: Router){}
+  activeScreen: 'books' | 'register' | 'sell' | 'clientSelector' | 'clientRegister' | 'buyOrders' | 'editor' | 'genre' | 'login' = 'books';
+  protectedScreen : string = '';
   mostrarCadastros = false;
   selectedClientId: number | null = null;
   book: Book = {} as Book;
+
 
   toggleCadastros() {
     this.mostrarCadastros = !this.mostrarCadastros;
   }
 
-  openScreen(screen: 'books' | 'register' | 'sell' | 'clientSelector' | 'clientRegister' | 'buyOrders' | 'editor' | 'genre') {
-    this.activeScreen = screen;
+  openScreen(screen: String) {
+    this.router.navigate([screen])
     this.mostrarCadastros = false;
   }
+  
   receive(book: Book){
     this.book = book;
     this.openScreen('register');
@@ -31,8 +37,4 @@ export class Menu {
     this.openScreen('sell');
   }
 
-  openRegister() {
-  this.book = {} as Book;
-  this.openScreen('register');
-}
 }

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/cor
 import { Genre } from '../../entities/Genre';
 import { GenreService } from '../../services/genre-service';
 import { LoaderService } from '../../services/loader';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-genre-register',
@@ -13,12 +14,12 @@ export class GenreRegister {
   genreName: string = '';
   genre : Genre = {} as Genre;
   genreList: Genre[] = [];
- @Output() voltar = new EventEmitter();
   
  constructor(
     private genreService: GenreService,
     public loaderService: LoaderService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private router : Router
   ) {
   }
 
@@ -73,7 +74,7 @@ export class GenreRegister {
     })
   }
     voltarPagina(){
-    this.voltar.emit();
+    this.router.navigate(['/books']);
   }
   
 

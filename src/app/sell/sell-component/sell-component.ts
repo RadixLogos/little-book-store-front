@@ -7,6 +7,7 @@ import { BuyOrderRequest } from '../../entities/BuyOrderRequest';
 import { Client } from '../../entities/client';
 import { ClientService } from '../../services/client-service';
 import { BookFilter } from '../../entities/BookFilter';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sell-component',
@@ -16,9 +17,14 @@ import { BookFilter } from '../../entities/BookFilter';
 })
 export class SellComponent {
   @Input() clientId!: number | null;
-  @Output() voltar = new EventEmitter<void>();
 
-  constructor(private service : BookService, public loaderService: LoaderService, private zone: NgZone, private cdr: ChangeDetectorRef, private clientService: ClientService){}
+  constructor(
+    private service : BookService,
+     public loaderService: LoaderService, 
+     private zone: NgZone, 
+     private cdr: ChangeDetectorRef, 
+     private clientService: ClientService, 
+     private router: Router){}
 
   books: any[] = [];
   bookFilter: BookFilter = {} as BookFilter;
@@ -186,7 +192,7 @@ registerSale(){
 }
   
   voltarPagina(){
-    this.voltar.emit();
+    this.router.navigate(['/books']);
   }
 
   openModal(type: 'success' | 'error', title: string, message: string) {

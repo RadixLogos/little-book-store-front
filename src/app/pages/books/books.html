@@ -79,9 +79,9 @@
   (click)="openImage(book.imgUrl)"
   [style.filter]="isUnavailable(book) ? 'grayscale(100%)' : 'none'"
   [style.opacity]="isUnavailable(book) ? '0.6' : '1'"
-  style="height: 250px; object-fit: contain; background-color: #f8f9fa; cursor: pointer;"
+  style="height: 250px; object-fit: contain; cursor: pointer;"
   [alt]="book.name"
-/>
+  />
 
 
           <div *ngIf="isUnavailable(book)" class="badge-overlay">
@@ -119,7 +119,7 @@
           <br>
           <button
             class="btn btn-outline-primary"
-            (click)="sendBook(book)"
+            (click)="updateBook(book)"
           >
             Atualizar
           </button>
@@ -142,28 +142,29 @@
     Nenhum livro encontrado com os filtros aplicados.
   </div>
 
-</div>
-<button
+  </div>
+  <button
   (click)="backPage()"
   [disabled]="currentPage === 0">
 
   Anterior
-</button>
+  </button>
 
-<span>
+  <span>
   Página {{ currentPage + 1 }}
   de
   {{ totalPages }}
-</span>
+  </span>
 
-<button
-  (click)="nextPage()"
-  [disabled]="currentPage >= totalPages - 1">
+  <button
+    (click)="nextPage()"
+    [disabled]="currentPage >= totalPages - 1">
 
-  Próxima
+    Próxima
 
-</button>
+  </button>
 
-<div class="image-modal" *ngIf="selectedImage" (click)="closeImage()">
-  <img [src]="selectedImage" class="image-modal-content" />
+  <div class="image-modal" *ngIf="selectedImage" (click)="closeImage()">
+    <img [src]="selectedImage" class="image-modal-content" />
+  </div>
 </div>

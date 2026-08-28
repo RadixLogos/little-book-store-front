@@ -1,1 +1,272 @@
-/* You can add global styles to this file, and also import other style files */
+/* =========================================================
+   TEMA GLOBAL - LIVRARIA
+   ========================================================= */
+
+:root {
+  --bg-dark: #171310;
+  --bg-card: #211b17;
+  --bg-input: #15110f;
+
+  --border-dark: #49382b;
+  --border-light: #594636;
+
+  --gold: #b89655;
+  --gold-light: #d6b878;
+
+  --text-main: #eee4d2;
+  --text-secondary: #c7b79c;
+  --text-muted: #958574;
+
+  --danger: #a94442;
+  --success: #718355;
+}
+
+/* =========================================================
+   BASE
+   ========================================================= */
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-dark);
+  color: var(--text-main);
+
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* Textos comuns */
+p,
+span,
+label,
+input,
+select,
+textarea,
+button {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* =========================================================
+   TÍTULOS
+   ========================================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--gold-light);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: bold;
+}
+
+h2 {
+  letter-spacing: 0.5px;
+}
+
+/* =========================================================
+   CARDS
+   ========================================================= */
+
+.card {
+  background: var(--bg-card);
+  color: var(--text-main);
+
+  border: 1px solid var(--border-dark);
+  border-radius: 10px;
+
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.card-body {
+  background: var(--bg-card);
+}
+
+.card-title {
+  color: var(--gold-light);
+}
+
+.card-text {
+  color: var(--text-main);
+}
+
+.card-header {
+  background: #2a211b;
+  color: var(--gold-light);
+  border-bottom: 1px solid var(--border-dark);
+}
+
+/* =========================================================
+   INPUTS
+   ========================================================= */
+
+.form-control,
+.form-select {
+  background-color: var(--bg-input);
+  color: var(--text-main);
+
+  border: 1px solid var(--border-light);
+  border-radius: 7px;
+}
+
+.form-control:focus,
+.form-select:focus {
+  background-color: var(--bg-input);
+  color: var(--text-main);
+
+  border-color: var(--gold);
+
+  box-shadow: 0 0 0 3px rgba(184, 150, 85, 0.15);
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+}
+
+.form-label {
+  color: var(--text-secondary);
+  font-weight: bold;
+}
+
+/* Select */
+.form-select option {
+  background: var(--bg-input);
+  color: var(--text-main);
+}
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+.btn-primary {
+  background-color: #8a6a35;
+  border-color: #8a6a35;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #a17c3f;
+  border-color: #a17c3f;
+}
+
+.btn-outline-primary {
+  color: var(--gold-light);
+  border-color: var(--gold);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--gold);
+  border-color: var(--gold);
+  color: #171310;
+}
+
+.btn-secondary {
+  background-color: #49382b;
+  border-color: #594636;
+  color: var(--text-main);
+}
+
+.btn-secondary:hover {
+  background-color: #5b4635;
+  border-color: #6b523d;
+}
+
+/* =========================================================
+   TABELAS
+   ========================================================= */
+
+.table {
+  color: var(--text-main);
+  border-color: var(--border-dark);
+}
+
+.table thead {
+  background: #2a211b;
+  color: var(--gold-light);
+}
+
+.table tbody tr {
+  background: var(--bg-card);
+  color: var(--text-main);
+}
+
+.table-hover tbody tr:hover {
+  background: #30251e;
+  color: var(--text-main);
+}
+
+.table-active {
+  background-color: #3a2d22 !important;
+  color: var(--gold-light) !important;
+}
+
+/* =========================================================
+   HR
+   ========================================================= */
+
+hr {
+  border-color: var(--border-dark);
+  opacity: 1;
+}
+
+/* =========================================================
+   TEXTOS DO BOOTSTRAP
+   ========================================================= */
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-success {
+  color: #9caf88 !important;
+}
+
+.text-danger {
+  color: #d17a72 !important;
+}
+
+/* =========================================================
+   ALERTAS
+   ========================================================= */
+
+.alert-info {
+  background: #25201b;
+  border-color: #594636;
+  color: var(--text-secondary);
+}
+
+.alert-danger {
+  background: #301c1b;
+  border-color: #70403d;
+  color: #e0aaa5;
+}
+
+.alert-success {
+  background: #20281c;
+  border-color: #4d6042;
+  color: #b4c5a4;
+}
+
+/* =========================================================
+   BADGES
+   ========================================================= */
+
+.badge {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+/* =========================================================
+   IMAGENS DOS LIVROS
+   ========================================================= */
+
+.image-container {
+  background: #15110f;
+}
+
+.card-img-top {
+  background-color: #15110f !important;
+}

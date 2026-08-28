@@ -7,6 +7,7 @@ import { EditorService } from '../../services/editor-service';
 import { GenreService } from '../../services/genre-service';
 import { Genre } from '../../entities/Genre';
 import { LoaderService } from '../../services/loader';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-register',
@@ -19,8 +20,8 @@ export class BookRegister implements OnInit{
   @ViewChild('fileInput') fileInput?: ElementRef<HTMLInputElement>;
 
   constructor(private bookService: BookService, private editorService: EditorService, private genreService: GenreService,
-    private toast: ToastrService, private cdr: ChangeDetectorRef, private zone: NgZone){}
-  @Input() bookSelected!: Book;
+    private toast: ToastrService, private cdr: ChangeDetectorRef, private zone: NgZone, private router: Router, private route: ActivatedRoute){}
+  bookSelected: Book = {} as Book;
   setOfGenresIds: Set<number> = new Set<number>();
   file!: File;
   imgUrl: string = '';
@@ -29,6 +30,20 @@ export class BookRegister implements OnInit{
   @Output() voltar = new EventEmitter();
   genres : Genre[] = [];
   ngOnInit(): void {
+     // Tentar obter o livro do state de navegação
+    const bookFromState = window.history.state?.book;
+    
+    if (bookFromState) {
+      this.bookSelected = bookFromState;
+    } else {
+      // Se não houver no state, tentar buscar pela rota
+      this.route.params.subscribe((params) => {
+        const bookId = params['id'];
+        if (bookId) {
+          this.loadBook(bookId);
+        }
+      });
+    }
     this.getAllEditors();
     this.findAllGenres();
     this.prepareBookSelected();
@@ -62,11 +77,21 @@ resetForm() {
   this.cdr.detectChanges();
 }
 
-  
+  loadBook(id: number): void {
+    this.bookService.getBookById(id).subscribe({
+      next: (response) => {
+        this.bookSelected = response;
+        console.log(response);
+      },
+      error: (err) => {
+        console.error('Erro ao carregar livro:', err);
+      },
+    });
+  }
 
 
   voltarPagina(){
-    this.voltar.emit();
+    this.router.navigate(['/books']);
   }
 onFileSelected(event: any){
   this.file = event.target.files[0];
@@ -108,7 +133,7 @@ onFileSelected(event: any){
           if(response.status == 200){
             console.log("Livro atualizado com sucesso!");
             this.resetForm();
-            this.voltar.emit();
+            this.voltarPagina();
           } else{
             this.toast.error("Erro ao atualizar livro!");
           }

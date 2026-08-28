@@ -1,6 +1,7 @@
 import { Component, Output, EventEmitter, ChangeDetectorRef, NgZone } from '@angular/core';
 import { ClientService } from '../../services/client-service';
 import { Client } from '../../entities/client';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-client-selector',
@@ -12,6 +13,7 @@ export class ClientSelector {
   @Output() clientSelected = new EventEmitter<number>();
   @Output() voltar = new EventEmitter<void>();
   @Output() openClientRegister = new EventEmitter<void>();
+
 
   clients: Client[] = [];
   selectedClientId: number | null = null;
@@ -29,8 +31,11 @@ export class ClientSelector {
   modalTitle: string = '';
   modalMessage: string = '';
 
+  // Variáveis 
+  activeScreen: string = '';
+
   constructor(private clientService: ClientService, private zone: NgZone, 
-  private cdr: ChangeDetectorRef) {}
+  private cdr: ChangeDetectorRef, private router: Router) {}
 
   ngOnInit() {
     this.loadClients();
@@ -53,23 +58,17 @@ export class ClientSelector {
     });
   }
 
-  
-  selectClient() {
-    if (this.selectedClientId) {
-      this.clientSelected.emit(this.selectedClientId);
-    }
-  }
 
   noClientSelected() {
-    this.clientSelected.emit(-1); // Emite -1 para indicar que nenhum cliente foi selecionado
+    this.selectedClientId = -1 // -1 para indicar que nenhum cliente foi selecionado
+    this.openRegisterForm()
   }
   toggleRegisterForm() {
     this.showRegisterForm = !this.showRegisterForm;
   }
 
   openRegisterForm() {
-    
-    this.openClientRegister.emit();
+    this.activeScreen = 'sell';
   }
 
   registerNewClient() {
@@ -119,6 +118,6 @@ export class ClientSelector {
   }
 
   voltarPagina() {
-    this.voltar.emit();
+    this.router.navigate(['/books']);
   }
 }
