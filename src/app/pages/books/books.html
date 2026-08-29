@@ -117,7 +117,7 @@
             Ver detalhes
           </button>
           <br>
-          <button
+          <button *ngIf="isAdmin()"
             class="btn btn-outline-primary"
             (click)="updateBook(book)"
           >
@@ -125,6 +125,7 @@
           </button>
           <br>
           <button
+            *ngIf="isAdmin()"
             class="btn btn-outline-danger mt-2"
             (click)="deleteBook(book)"
           >

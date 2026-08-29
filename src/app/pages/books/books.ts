@@ -10,6 +10,7 @@ import { BookFilter } from '../../entities/BookFilter';
 import { BookResponse } from '../../entities/BookResponse';
 import { GenreService } from '../../services/genre-service';
 import { state } from '@angular/animations';
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-books',
@@ -38,7 +39,8 @@ constructor(
   private zone: NgZone, 
   private cdr: ChangeDetectorRef,
   private router: Router,
-  private genreService: GenreService
+  private genreService: GenreService,
+  private authService: AuthService
 ){}
 
 ngOnInit(): void {
@@ -186,6 +188,10 @@ nextPage(){
   }
 
   
+}
+  
+isAdmin(): boolean{
+    return this.authService.isAdmin();
 }
 
 backPage(){

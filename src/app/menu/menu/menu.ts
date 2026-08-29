@@ -37,4 +37,18 @@ export class Menu {
     this.openScreen('sell');
   }
 
+  isAdmin(): boolean{
+    return this.authService.isAdmin();
+  }
+  isOperator(): boolean{
+    return this.authService.isOperator();
+  }
+
+  isLogged(): boolean{
+    return this.authService.isLoggendIn();
+  }
+
+  logout(){
+    this.authService.logout();
+  }
 }

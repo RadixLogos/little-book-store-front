@@ -1,0 +1,108 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #171310;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Título */
+.container h2 {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 34px;
+  color: #d6b878;
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+/* Card do login */
+form {
+  width: 100%;
+  max-width: 400px;
+  padding: 38px;
+  box-sizing: border-box;
+
+  background: #211b17;
+  border: 1px solid #49382b;
+  border-radius: 12px;
+
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+}
+
+/* Campos */
+form > div {
+  margin-bottom: 22px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 16px;
+  font-weight: bold;
+
+  color: #d8c7a5;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 14px;
+
+  background: #15110f;
+  color: #eee4d2;
+
+  border: 1px solid #594636;
+  border-radius: 7px;
+
+  font-size: 15px;
+  outline: none;
+
+  transition: 0.2s ease;
+}
+
+input:focus {
+  border-color: #b89655;
+  box-shadow: 0 0 0 3px rgba(184, 150, 85, 0.15);
+}
+
+input::placeholder {
+  color: #857565;
+}
+
+/* Botão */
+button {
+  width: 100%;
+  margin-top: 5px;
+  padding: 13px;
+
+  border: none;
+  border-radius: 7px;
+
+  background: #8a6a35;
+  color: #fff;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+button:hover {
+  background: #a17c3f;
+}
+
+button:active {
+  transform: translateY(1px);
+}
