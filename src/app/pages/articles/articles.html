@@ -1,0 +1,131 @@
+
+<div class="container mt-4">
+
+  <!-- Cabeçalho -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Catálogo de Artigos</h2>
+  </div>
+
+ <!-- Filtros -->
+<div class="card mb-2 search-card">
+  <div class="card-body">
+
+    <div class="search-container">
+
+      <label class="form-label">Buscar por nome</label>
+
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="article.name"
+          (keydown.enter)="filterChange()"
+          placeholder="Digite o nome..."
+        />
+
+        <button
+          class="btn btn-primary"
+          type="button"
+          (click)="filterChange()"
+        >
+          Buscar
+        </button>
+      </div>
+    
+      </div>
+    </div>
+  </div>
+
+  <!-- GRID DE LIVROS -->
+
+  <div class="row">
+
+    <div class="col-md-3 mb-4" *ngFor="let article of articles">
+      <div class="card h-100 shadow-sm" [class.unavailable]="isUnavailable(article)">
+
+        <!-- Imagem -->
+        <div class="image-container">
+        <img
+  [src]="article.imgUrl"
+  class="card-img-top"
+  (click)="openImage(article.imgUrl)"
+  [style.filter]="isUnavailable(article) ? 'grayscale(100%)' : 'none'"
+  [style.opacity]="isUnavailable(article) ? '0.6' : '1'"
+  style="height: 250px; object-fit: contain; cursor: pointer;"
+  [alt]="article.name"
+  />
+
+
+          <div *ngIf="isUnavailable(article)" class="badge-overlay">
+            <span class="badge bg-danger">INDISPONÍVEL</span>
+          </div>
+        </div>
+
+        <!-- Conteúdo -->
+        <div class="card-body d-flex flex-column">
+
+          <h5 class="card-title">{{ article.name }}</h5>
+          
+
+          <p class="card-text mb-1">
+            💰 R$ {{ article.price | number:'1.2-2' }}
+          </p>
+
+          <p class="card-text text-muted">
+            Estoque: <span [class]="isUnavailable(article) ? 'text-danger' : 'text-success'">
+              {{ isUnavailable(article) ? 'Indisponível' : article.stockQuantity }}
+            </span>
+          </p>
+
+          <button *ngIf="isAdmin()"
+            class="btn btn-outline-primary"
+            (click)="updateArticle(article)"
+          >
+            Atualizar
+          </button>
+          <br>
+          <button
+            *ngIf="isAdmin()"
+            class="btn btn-outline-danger mt-2"
+            (click)="deleteArticle(article)"
+          >
+            Deletar
+          </button>
+      </div>
+       
+     
+    </div>
+
+  </div>
+
+  <!-- Mensagem quando nenhum artigo é encontrado -->
+  <div *ngIf="articles.length === 0" class="alert alert-info text-center mt-4">
+    Nenhum artigo encontrado com os filtros aplicados.
+  </div>
+
+  </div>
+  <button
+  (click)="backPage()"
+  [disabled]="currentPage === 0">
+
+  Anterior
+  </button>
+
+  <span>
+  Página {{ currentPage + 1 }}
+  de
+  {{ totalPages }}
+  </span>
+
+  <button
+    (click)="nextPage()"
+    [disabled]="currentPage >= totalPages - 1">
+
+    Próxima
+
+  </button>
+
+  <div class="image-modal" *ngIf="selectedImage" (click)="closeImage()">
+    <img [src]="selectedImage" class="image-modal-content" />
+  </div>
+</div>

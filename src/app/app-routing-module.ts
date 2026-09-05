@@ -15,15 +15,24 @@ import { authGuard } from './guards/auth-guard';
 import { Login } from './pages/login/login';
 import { ClientSelector } from './pages/client-selector/client-selector';
 import { roleGuard } from './guards/role-guard';
+import { Articles } from './pages/articles/articles';
+import { ArticleRegister } from './pages/article-register/article-register';
 const routes: Routes = [
   {path: '', redirectTo: 'books', pathMatch: 'full'},
   {path : 'books', component: Books},
+  {path : 'articles', component: Articles},
   {path : 'login', component: Login},
   {path: 'book-details/:id', component: BookDetailsComponent},
   {path: 'book-register', component: BookRegister, canActivate: [authGuard, roleGuard],data:{
     role:['ROLE_ADMIN']
   }},
+  {path: 'article-register', component: ArticleRegister, canActivate: [authGuard, roleGuard],data:{
+    role:['ROLE_ADMIN']
+  }},
   {path: 'book-register/:id', component: BookRegister, canActivate: [authGuard, roleGuard],data:{
+    role:['ROLE_ADMIN']
+  }},
+   {path: 'article-register/:id', component: ArticleRegister, canActivate: [authGuard, roleGuard],data:{
     role:['ROLE_ADMIN']
   }},
   {path: 'client-register', component: ClientRegister, canActivate: [authGuard, roleGuard],data:{

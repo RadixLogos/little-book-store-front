@@ -15,6 +15,15 @@
         </button>
       </div>
 
+      <!-- Botão para Catálogo -->
+      <div class="mt-3">
+        <button 
+          class="btn btn-outline-primary w-100"
+          (click)="openScreen('articles')">
+           Catálogo de Artigos
+        </button>
+      </div>
+
       <!-- Botão para Pedidos -->
       <div *ngIf="isAdmin() || isOperator() " class="mt-2">
         <button 
@@ -34,6 +43,8 @@
 
         <div *ngIf="mostrarCadastros" class="mt-2">
           <button *ngIf="isAdmin()" class="btn btn-link w-100 text-start d-block" (click)="openScreen('/book-register')">Cadastrar Livros</button>
+
+          <button *ngIf="isAdmin()" class="btn btn-link w-100 text-start d-block" (click)="openScreen('/article-register')">Cadastrar Artigos</button>
           
           <button class="btn btn-link w-100 text-start d-block" (click)="openScreen('/client-selector')">Cadastrar Vendas</button>
           

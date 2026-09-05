@@ -31,7 +31,6 @@ totalPages : number = 0;
 currentPage: number = 0;
 activeScreen : String = ''
 
-@Output() bookSelected = new EventEmitter<Book>();
 constructor(
   private service: BookService,
   private editorService: EditorService, 

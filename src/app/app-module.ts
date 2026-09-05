@@ -24,6 +24,9 @@ import { loadingInterceptor } from './interceptors/loading-interceptor';
 import { Loader } from './shared/loader/loader';
 import { Login } from './pages/login/login';
 import { jwtInterceptor } from './interceptors/jwt-interceptor';
+import { errorInterceptor } from './interceptors/error-interceptor';
+import { Articles } from './pages/articles/articles';
+import { ArticleRegister } from './pages/article-register/article-register';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,8 @@ import { jwtInterceptor } from './interceptors/jwt-interceptor';
     GenreRegister,
     Loader,
     Login,
+    Articles,
+    ArticleRegister,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +60,7 @@ import { jwtInterceptor } from './interceptors/jwt-interceptor';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideHttpClient(withInterceptors([loadingInterceptor,jwtInterceptor])),
+    provideHttpClient(withInterceptors([loadingInterceptor, jwtInterceptor, errorInterceptor])),
   ],
   bootstrap: [App],
 })
