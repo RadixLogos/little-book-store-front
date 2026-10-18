@@ -1,11 +1,11 @@
 import { Client } from "./client";
-import { OrderBook } from "./OrderBook";
+import { Order } from "./Order";
 
 export interface BuyOrderResponse {
     id: number;
     client: Client;
     orderDate: Date;
-    orderBooks: OrderBook[];
+    orders: Order[];
     receiptUrl: string;
     total: number;
 }

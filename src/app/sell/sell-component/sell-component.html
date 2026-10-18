@@ -3,15 +3,34 @@
 
   <!-- Cabeçalho -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2>Venda de Livros</h2>
+    <h2 *ngIf="card === 'book'">Venda de Livros</h2>
+    <h2 *ngIf="card === 'article'">Venda de Artigos</h2>
     <button class="btn btn-outline-secondary" type="button" (click)="voltarPagina()">
       Voltar
     </button>
   </div>
 
- 
+ <!-- Seleção do tipo de produto -->
+<div class="d-flex gap-2 mb-4">
+  <button
+    class="btn"
+    [ngClass]="card === 'book' ? 'btn-primary' : 'btn-outline-primary'"
+    (click)="selectCard('book')">
+
+    Livros
+  </button>
+
+  <button
+    class="btn"
+    [ngClass]="card === 'article' ? 'btn-primary' : 'btn-outline-primary'"
+    (click)="selectCard('article')">
+
+    Artigos
+  </button>
+</div>
+
   <!-- Busca -->
-  <div class="input-group mb-4">
+  <div class="input-group mb-4"  *ngIf="card === 'book'">
     <input 
       type="text"
       class="form-control"
@@ -22,11 +41,26 @@
       Buscar
     </button>
   </div>
-  <!-- GRID DE LIVROS -->
- 
-  <div class="row">
 
-    <div class="col-md-3 mb-4" *ngFor="let book of books">
+
+  <div class="input-group mb-4"  *ngIf="card === 'article'">
+    <input 
+      type="text"
+      class="form-control"
+      [(ngModel)]="bookFilter.name"
+      placeholder="Buscar por nome...">
+
+    <button class="btn btn-outline-secondary" (click)="loadBooks()">
+      Buscar
+    </button>
+  </div>
+
+  <!-- GRID -->
+ 
+  <div class="row" *ngIf="card === 'book'">
+
+    
+     <div class="col-md-3 mb-4" *ngFor="let book of books">
       <div class="card h-100 shadow-sm" (click)="selectBook(book)" style="cursor: pointer;">
 
         <!-- Imagem -->
@@ -56,7 +90,40 @@
 
       </div>
     </div>
+</div>
+    <div class="row" *ngIf="card === 'article'">
+      <div class="col-md-3 mb-4" *ngFor="let article of articles">
+      <div class="card h-100 shadow-sm" (click)="selectArticle(article)" style="cursor: pointer;">
 
+        <!-- Imagem -->
+        <img 
+          [src]="article.imgUrl" 
+          class="card-img-top"
+          style="height: 250px; object-fit: cover;">
+
+        <!-- Conteúdo -->
+        <div class="card-body d-flex flex-column">
+
+          <h5 class="card-title">{{ article.name }}</h5>
+
+          <p class="card-text mb-1">
+            💰 R$ {{ article.price | number:'1.2-2' }}
+          </p>
+
+          <p class="card-text text-muted">
+            Estoque: {{ article.stockQuantity }}
+          </p>
+
+          <button class="btn btn-outline-primary mt-auto" type="button">
+            Selecionar para venda
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+</div>
   </div>
 
   <div class="sale-modal-backdrop" *ngIf="showSaleBox && selectedBook.id" (click)="closeSaleBox()">
@@ -64,8 +131,8 @@
       <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">
           <div>
-            <h4 class="mb-0">Venda de: {{ selectedBook.name }}</h4>
-            <small class="text-muted">Preço base: R$ {{ selectedBook.price | number:'1.2-2' }} | Estoque: {{ selectedBook.stockQuantity }}</small>
+            <h4 class="mb-0">Venda de: {{ getItemName() }}</h4>
+            <small class="text-muted">Preço base: R$ {{ getItemPrice() | number:'1.2-2' }} | Estoque: {{ getStockQuantity() }}</small>
           </div>
           <button type="button" class="btn-close" aria-label="Fechar" (click)="closeSaleBox()"></button>
         </div>
@@ -79,7 +146,7 @@
                 class="form-control"
                 [(ngModel)]="quantity"
                 min="1"
-                [max]="selectedBook.stockQuantity"
+                [max]="getStockQuantity()"
                 (change)="selectQuantity(quantity)">
             </div>
           </div>

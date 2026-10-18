@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Book } from '../entities/book';
-import { OrderBook } from '../entities/OrderBook';
+import { Order } from '../entities/Order';
 import { BuyOrderRequest } from '../entities/BuyOrderRequest';
 import { BuyOrderResponse } from '../entities/BuyOrderResponse';
 import { BookFilter } from '../entities/BookFilter';

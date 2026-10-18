@@ -1,4 +1,4 @@
-import { OrderBook } from "./OrderBook";
+import { Order } from "./Order";
 
 export interface BuyOrderRequest {
     id: number;
@@ -6,7 +6,7 @@ export interface BuyOrderRequest {
     clientName: string;
     total: number;
     orderDate: Date;
-    orderBooks: OrderBook[];
+    orders: Order[];
     receiptUrl: string;
 
 }

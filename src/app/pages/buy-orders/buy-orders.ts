@@ -34,7 +34,9 @@ export class BuyOrdersComponent implements OnInit {
   selectedClient: Client = {} as Client;
   
   clientList: Client[] = [];
-
+  client: Client = {} as Client;
+  currentPage: number = 0;
+  totalPage: number = 0;
   isLoading = true;
 
   editingOrderId: number | null = null;
@@ -119,13 +121,14 @@ export class BuyOrdersComponent implements OnInit {
     this.router.navigate(['/books']);
   }
   saveEdit(order: BuyOrderResponse): void {
+
     this.buyOrderRequest = {
       id: order.id,
       clientId: order.client.id,
       clientName: order.client.name,
       total: order.total,
       orderDate: order.orderDate,
-      orderBooks: order.orderBooks,
+      orders: order.orders,
       receiptUrl: order.receiptUrl
     }
 
@@ -152,7 +155,7 @@ export class BuyOrdersComponent implements OnInit {
   }
 
   loadClients(): void {
-    this.clientService.getClients().subscribe({
+    this.clientService.getClients(this.client,this.currentPage,12).subscribe({
       
       next: (response: any) => {
 
@@ -201,7 +204,11 @@ export class BuyOrdersComponent implements OnInit {
 
   getFormattedDate(date: Date): string {
 
-    return new Date(date).toLocaleDateString('pt-BR');
+    const d = new Date(date);
+
+    return `${String(d.getUTCDate()).padStart(2, '0')}/` +
+          `${String(d.getUTCMonth() + 1).padStart(2, '0')}/` +
+          `${d.getUTCFullYear()}`;
 
   }
 

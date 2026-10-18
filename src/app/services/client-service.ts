@@ -11,8 +11,8 @@ export class ClientService {
 
   constructor(private http: HttpClient) {}
 
-  getClients() {
-    return this.http.get<Client[]>(`${this.apiUrl}clients`,{ observe: 'response' });
+  getClients(filter: Client, currentPage: number, size: number) {
+    return this.http.get<Client[]>(`${this.apiUrl}clients?name=${filter.name||''}&page=${currentPage}&size=${size}`,{ observe: 'response' });
   }
 
   saveClient(client: Client) {

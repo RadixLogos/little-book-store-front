@@ -31,6 +31,10 @@ export class ClientSelectorGeneral {
   modalTitle: string = '';
   modalMessage: string = '';
 
+
+  client: Client = {} as Client;
+  totalPages : number = 0;
+  currentPage: number = 0;
   constructor(private clientService: ClientService, private zone: NgZone, 
   private cdr: ChangeDetectorRef, private router: Router) {}
 
@@ -39,11 +43,12 @@ export class ClientSelectorGeneral {
   }
 
   loadClients() {
-    this.clientService.getClients().subscribe({
+    this.clientService.getClients(this.client, this.currentPage, 12).subscribe({
       next: (response : any) => {
         this.zone.run(() => {
           this.clients = response.body.content || [];
           console.log('Clientes carregados:', this.clients);
+          this.totalPages = response.body.totalPages;
           this.cdr.detectChanges();
         });
       },
@@ -123,6 +128,7 @@ export class ClientSelectorGeneral {
     next: response =>{
       alert('Cliente deletado com sucesso!')
       console.log(response);
+      this.loadClients();
     },
     error : err =>{
         alert('Erro ao deletar cliente ' + err.message);
@@ -158,6 +164,21 @@ export class ClientSelectorGeneral {
   closeModal() {
     this.isModalOpen = false;
   }
+
+  nextPage(){
+    if(this.currentPage <= this.totalPages -1){
+      this.currentPage++;
+      this.loadClients();
+    }
+  }
+
+
+  backPage(){
+    if(this.currentPage > 0){
+      this.currentPage--;
+      this.loadClients();
+    } 
+    }
 
   voltarPagina() {
     this.router.navigate(['/books']);

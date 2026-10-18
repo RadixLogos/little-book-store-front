@@ -44,6 +44,26 @@
                 </tr>
               </tbody>
             </table>
+               <button
+  (click)="backPage()"
+  [disabled]="currentPage === 0">
+
+  Anterior
+  </button>
+
+  <span>
+  Página {{ currentPage + 1 }}
+  de
+  {{ totalPages }}
+  </span>
+
+  <button
+    (click)="nextPage()"
+    [disabled]="currentPage >= totalPages - 1">
+
+    Próxima
+
+  </button>
           </div>
 
           <div *ngIf="clients.length === 0" class="alert alert-info">
