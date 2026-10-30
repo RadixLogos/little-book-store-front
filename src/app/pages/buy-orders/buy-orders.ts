@@ -38,7 +38,7 @@ export class BuyOrdersComponent implements OnInit {
   currentPage: number = 0;
   totalPage: number = 0;
   isLoading = true;
-
+  visibleReceiptId: number | null = null;
   editingOrderId: number | null = null;
 
   file!: File;
@@ -231,6 +231,11 @@ getImgUrl(){
       }
     )
   }
+
+toggleReceipt(id: number): void {
+  this.visibleReceiptId =
+    this.visibleReceiptId === id ? null : id;
+}
 
 }
 

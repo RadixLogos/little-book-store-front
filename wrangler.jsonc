@@ -1,0 +1,12 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "little-book-store-front",
+  "compatibility_date": "2026-10-23",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "./dist/bookstore-frontend/browser",
+    "not_found_handling": "single-page-application"
+  }
+}

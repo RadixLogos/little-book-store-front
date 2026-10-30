@@ -236,9 +236,27 @@
         </div>
 
       </div>
-        <div>
-          <img *ngIf="buyOrder.receiptUrl" [src]="buyOrder.receiptUrl" alt="Comprovante de compra" class="img-fluid mt-3" />
-        </div>
+       <div *ngIf="buyOrder.receiptUrl" class="mt-3">
+
+  <button
+    type="button"
+    class="btn btn-outline-primary"
+    (click)="toggleReceipt(buyOrder.id)">
+
+    {{ visibleReceiptId === buyOrder.id
+        ? 'Ocultar comprovante'
+        : 'Ver comprovante' }}
+
+  </button>
+
+  <div *ngIf="visibleReceiptId === buyOrder.id" class="mt-3">
+    <img
+      [src]="buyOrder.receiptUrl"
+      alt="Comprovante de compra"
+      class="img-fluid receipt-image" />
+  </div>
+
+</div>
 
         <div *ngIf="editingOrderId === buyOrder.id" class="mb-3">
           <div class="form-label">  
