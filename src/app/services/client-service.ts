@@ -7,7 +7,7 @@ import { Client } from '../entities/client';
 })
 export class ClientService {
 
-  private apiUrl = 'http://localhost:8080/';
+  private apiUrl = 'https://little-book-store.onrender.com/';
 
   constructor(private http: HttpClient) {}
 

@@ -11,7 +11,7 @@ import { JwtPayload } from '../entities/JwtPayload';
 export class AuthService {
   constructor(private http: HttpClient){}
 
-  apiUrl = 'http://localhost:8080/login'
+  apiUrl = 'https://little-book-store.onrender.com/login'
 
   login(request: LoginRequest){
     return this.http.post<LoginResponse>(this.apiUrl,request);

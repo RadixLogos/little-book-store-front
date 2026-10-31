@@ -7,7 +7,7 @@ import { Article } from '../entities/Article';
 })
 export class ArticleService {
   constructor(private http: HttpClient){}
-  apiUrl = 'http://localhost:8080/';
+  apiUrl = 'https://little-book-store.onrender.com/';
 
   getArticles(filter: Article, currentPage:number, size:number){
     return this.http.get<any>(`${this.apiUrl}articles?name=${filter.name||''}&page=${currentPage}&size=${size}`);
